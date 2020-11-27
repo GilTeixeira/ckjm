@@ -54,7 +54,7 @@ public class MetricsFilter {
      * The class specification can be either a class file name, or
      * a jarfile, followed by space, followed by a class file name.
      */
-    static void processClass(ClassMetricsContainer cm, String clspec) {
+    static String processClass(ClassMetricsContainer cm, String clspec) {
 	int spc;
 	JavaClass jc = null;
 
@@ -77,7 +77,9 @@ public class MetricsFilter {
 	    ClassVisitor visitor = new ClassVisitor(jc, cm);
 	    visitor.start();
 	    visitor.end();
+		return visitor.getMyClassName();
 	}
+		return "ERROR";
     }
 
     /**
@@ -123,9 +125,32 @@ public class MetricsFilter {
 	    }
 	}
 
-	for (int i = argp; i < argv.length; i++)
-	    processClass(cm, argv[i]);
+	String timeResults = "class;time\n";
+	
+	for (int i = argp; i < argv.length; i++){
+	
+		
 
+		long start = System.nanoTime();
+		String clName = processClass(cm, argv[i]);
+		long finish = System.nanoTime();
+
+		long timeElapsed = (finish - start)/1000; // in microseconds
+		//System.out.print("Class3:");
+		//System.out.println(clName);
+		timeResults += clName+";"+timeElapsed+"\n";
+		//System.out.print("Time:");
+		//System.out.println(timeElapsed);
+	}
+	try {
+		var fileName = "time_results.txt";
+		BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
+		writer.write(timeResults);
+			
+		writer.close();
+	} catch (IOException e) {
+            e.printStackTrace();
+    }
 	CkjmOutputHandler handler = new PrintPlainResults(System.out);
 	cm.printMetrics(handler);
     }

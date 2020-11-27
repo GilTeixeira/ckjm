@@ -213,4 +213,8 @@ public class ClassVisitor extends org.apache.bcel.classfile.EmptyVisitor {
 	    }
 	cm.setLcom(lcom > 0 ? lcom : 0);
     }
+
+	 public String getMyClassName() {
+		 return myClassName;
+	 }
 }

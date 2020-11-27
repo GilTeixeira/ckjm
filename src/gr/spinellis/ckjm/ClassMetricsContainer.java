@@ -51,11 +51,36 @@ class ClassMetricsContainer {
 	Set<Map.Entry<String, ClassMetrics>> entries = m.entrySet();
 	Iterator<Map.Entry<String, ClassMetrics>> i;
 
+	String full_results = "class;metric;value;time\n";
+
 	for (i = entries.iterator(); i.hasNext(); ) {
 	    Map.Entry<String, ClassMetrics> e = i.next();
 	    ClassMetrics cm = e.getValue();
-	    if (cm.isVisited() && (MetricsFilter.includeAll() || cm.isPublic()))
-		handler.handleClass(e.getKey(), cm);
+	    if (cm.isVisited() && (MetricsFilter.includeAll() || cm.isPublic())){
+			handler.handleClass(e.getKey(), cm);
+
+			String className = e.getKey();
+			String metricsStr = cm.toString();
+			String[] metrics = metricsStr.split("\\s+");
+
+			String metricsSiglas[] = { "WMC", "DIT", "NOC", "CBO", "RFC", "LCOM", "Ce", "NPM"};
+			for (int j = 0; j < metrics.length; j++) { 
+				full_results += className + ";" + metricsSiglas[j] + ";" + metrics[j] + ";0\n";
+				// accessing each element of array 
+				//x = ar[i]; 
+				//System.out.print(x + " "); 
+			} 
+		}
 	}
+
+	try {
+		var fileName = "full_results.txt";
+		BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
+		writer.write(full_results);
+			
+		writer.close();
+	} catch (IOException e) {
+            e.printStackTrace();
+    }
     }
 }
