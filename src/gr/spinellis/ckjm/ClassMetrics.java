@@ -42,22 +42,22 @@ public class ClassMetrics {
     /** Lack of cohesion in methods */
     private int lcom;
     /** Number of public methods */
-    private int npm;
+    //private int npm;
     /** True if the class has been visited by the metrics gatherer */
     private boolean visited;
     /** True if the class is public */
     private boolean isPublicClass;
     /** Coupled classes: classes that use this class */
-    private HashSet<String> afferentCoupledClasses;
+    //private HashSet<String> afferentCoupledClasses;
 
     /** Default constructor. */
     ClassMetrics() {
 	wmc = 0;
 	noc = 0;
 	cbo = 0;
-	npm = 0;
+	//npm = 0;
 	visited = false;
-	afferentCoupledClasses = new HashSet<String>();
+	//afferentCoupledClasses = new HashSet<String>();
     }
 
     /** Increment the weighted methods count */
@@ -91,14 +91,14 @@ public class ClassMetrics {
     public void setLcom(int l) { lcom = l; }
 
     /** Return the class's afferent couplings metric */
-    public int getCa() { return afferentCoupledClasses.size(); }
+    //public int getCa() { return afferentCoupledClasses.size(); }
     /** Add a class to the set of classes that depend on this class */
-    public void addAfferentCoupling(String name) { afferentCoupledClasses.add(name); }
+    //public void addAfferentCoupling(String name) { afferentCoupledClasses.add(name); }
 
     /** Increment the number of public methods count */
-    public void incNpm() { npm++; }
+    //public void incNpm() { npm++; }
     /** Return the number of public methods metric */
-    public int getNpm() { return npm; }
+    //public int getNpm() { return npm; }
 
     /** Return true if the class is public */
     public boolean isPublic() { return isPublicClass; }
@@ -122,9 +122,10 @@ public class ClassMetrics {
 		" " + noc +
 		" " + cbo +
 		" " + rfc +
-		" " + lcom +
-		" " + getCa()+
-		" " + npm);
+		" " + lcom
+        //+" " + getCa()+
+		//" " + npm)
+        );
     }
 
     /** Mark the instance as visited by the metrics analyzer */

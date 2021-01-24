@@ -112,7 +112,7 @@ public class ClassVisitor extends org.apache.bcel.classfile.EmptyVisitor {
 	     !ClassMetrics.isJdkClass(className)) &&
 	    !myClassName.equals(className)) {
 	    efferentCoupledClasses.add(className);
-	    cmap.getMetrics(className).addAfferentCoupling(myClassName);
+	    //cmap.getMetrics(className).addAfferentCoupling(myClassName);
 	}
     }
 
@@ -169,8 +169,8 @@ public class ClassVisitor extends org.apache.bcel.classfile.EmptyVisitor {
 	incRFC(myClassName, method.getName(), argTypes);
 
 	cm.incWmc();
-	if (Modifier.isPublic(method.getModifiers()))
-		cm.incNpm();
+	//if (Modifier.isPublic(method.getModifiers()))
+		//cm.incNpm();
 	mi.add(new TreeSet<String>());
 	MethodVisitor factory = new MethodVisitor(mg, this);
 	factory.start();

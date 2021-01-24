@@ -113,37 +113,48 @@ public class MetricsFilter {
 	}
 	ClassMetricsContainer cm = new ClassMetricsContainer();
 
+	String timeResults = "class;time\n";
+
 	if (argv.length == argp) {
 	    BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 	    try {
-		String s;
-		while ((s = in.readLine()) != null)
-		    processClass(cm, s);
+			String s;
+			while ((s = in.readLine()) != null){
+				long start = System.nanoTime();
+				String clName = processClass(cm, s);
+				long finish = System.nanoTime();
+				long timeElapsed = (finish - start)/1000; // in microseconds
+				//System.out.print("Class3:");
+				//System.out.println(clName);
+				timeResults += clName+";"+timeElapsed+"\n";
+				//System.out.print("Time:");
+				//System.out.println(timeElapsed);
+			}
 	    } catch (Exception e) {
 		System.err.println("Error reading line: " + e);
 		System.exit(1);
 	    }
 	}
 
-	String timeResults = "class;time\n";
+	
 	
 	for (int i = argp; i < argv.length; i++){
 	
 		
 
-		long start = System.nanoTime();
+		
 		String clName = processClass(cm, argv[i]);
-		long finish = System.nanoTime();
+		
 
-		long timeElapsed = (finish - start)/1000; // in microseconds
+		//long timeElapsed = (finish - start)/1000; // in microseconds
 		//System.out.print("Class3:");
 		//System.out.println(clName);
-		timeResults += clName+";"+timeElapsed+"\n";
+		//timeResults += clName+";"+timeElapsed+"\n";
 		//System.out.print("Time:");
 		//System.out.println(timeElapsed);
 	}
 	try {
-		var fileName = "time_results.txt";
+		var fileName = "time_results_per_class.csv";
 		BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
 		writer.write(timeResults);
 			

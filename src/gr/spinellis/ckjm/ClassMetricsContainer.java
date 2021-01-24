@@ -51,7 +51,7 @@ class ClassMetricsContainer {
 	Set<Map.Entry<String, ClassMetrics>> entries = m.entrySet();
 	Iterator<Map.Entry<String, ClassMetrics>> i;
 
-	String full_results = "class;metric;value;time\n";
+	String full_results = "id;metric;value;time\n";
 
 	for (i = entries.iterator(); i.hasNext(); ) {
 	    Map.Entry<String, ClassMetrics> e = i.next();
@@ -63,7 +63,7 @@ class ClassMetricsContainer {
 			String metricsStr = cm.toString();
 			String[] metrics = metricsStr.split("\\s+");
 
-			String metricsSiglas[] = { "WMC", "DIT", "NOC", "CBO", "RFC", "LCOM", "Ce", "NPM"};
+			String metricsSiglas[] = { "CK-WMC", "CK-DIT", "CK-NOC", "CK-CBO", "CK-RFC", "CK-LCOM", "Ce", "NPM"};
 			for (int j = 0; j < metrics.length; j++) { 
 				full_results += className + ";" + metricsSiglas[j] + ";" + metrics[j] + ";0\n";
 				// accessing each element of array 
@@ -74,7 +74,7 @@ class ClassMetricsContainer {
 	}
 
 	try {
-		var fileName = "full_results.txt";
+		var fileName = "class_results.csv";
 		BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
 		writer.write(full_results);
 			

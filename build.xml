@@ -27,7 +27,7 @@
 
 <target name="compile" depends="init"
 	description="compile the source, build library " >
-	<javac srcdir="${src}" destdir="${build}/classes" classpath="lib/${bcel}" excludes="**/RCS/*">
+	<javac srcdir="${src}" destdir="${build}/classes" classpath="lib/${bcel}" excludes="**/RCS/*" includeantruntime="false">
 		<compilerarg value="-Xlint:unchecked"/>
 	</javac>
 	<copy file="lib/${bcel}"
